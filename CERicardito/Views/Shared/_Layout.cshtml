@@ -19,6 +19,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- //for-mobile-apps -->
     <link href="~/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Resources/css/listacarrito.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Resources/css/style_modal.css" rel="stylesheet" type="text/css" media="all" />
     <!-- font-awesome icons -->
     <link href="~/Resources/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
     <!-- //font-awesome icons -->
@@ -39,6 +41,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	});
     </script>
     <!-- start-smoth-scrolling -->
+
+    <style>
+        .iip {
+            color: #FF0000;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,20 +56,60 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <a href="products.html">Ofertas de Hoy!</a>
         </div>
         <div class="w3l_search">
-            <form action="#" method="post">
-                <input type="text" name="Product" value="Buscar Productos..." onfocus="this.value = '';" onblur="    if (this.value == '') { this.value = 'Buscar Productos...'; }" required="">
+            <form action="@Url.Action("Buscar", "Home")" method="get">
+                <input type="text" name="id" value="Buscar Productos..." onfocus="this.value = '';" onblur=""    if (this.value == '') { this.value = 'Buscar Productos...'; }" required="">
                 <input type="submit" value=" ">
             </form>
         </div>
+
+
         <div class="product_list_header">
-            <form action="#" method="post" class="last">
-                <fieldset>
-                    <input type="hidden" name="cmd" value="_cart" />
-                    <input type="hidden" name="display" value="1" />
-                    <input type="submit" name="submit" value="Ver su Carrito" class="button" />
-                </fieldset>
-            </form>
+
+            <!--  ==========  -->
+            <!--  = Cart =  -->
+            <!--  ==========  -->
+
+ 
+                 
+            <input id="paginas1" href="javascript:void(0)" data-toggle="modal" data-target="#responsive"  type="submit" name="submit" value="View your cart" class="button"/><i class="iip" id="nroProductosCarrito">(0)</i>
+
+            <div class="modal fade" id="responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="cart">
+                            <p id="totalCompraCarrito" class="dark-clr hidden-tablet">0.00</p>
+                        </div>
+                        <div class="open-panel">
+
+                            <div id="itemcarrito"></div>
+
+                            <div class="summary">
+                                <div class="line">
+                                    <div class="row-fluid">
+                                        <div class="span6">TOTAL:</div>
+                                        <div id="totalCarrito" class="span6 align-right size-16">0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="proceed">
+                                <a href='@Url.Action("Paso1","Comprar")' class="btn btn-danger pull-right bold higher">Comprar <i class="icon-shopping-cart"></i></a>
+                                <small>Shipping costs are calculated based on location. <a href="#">More information</a></small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!-- /cart -->
         </div>
+
+
+
+
+
         <div class="w3l_header_right">
             <ul>
                 <li class="dropdown profile_details_drop">
@@ -77,6 +125,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </li>
             </ul>
         </div>
+
+
         <div class="w3l_header_right1">
             <h2><a href="mail.html">Contacto</a></h2>
         </div>
@@ -105,7 +155,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="logo_products">
         <div class="container">
             <div class="w3ls_logo_products_left">
-                <h1><a href="index.html"><span>A comprar</span>Center</a></h1>
+                <h1><a href="@Url.Action("Index", "Home")"><span>A comprar</span>Center</a></h1>
             </div>
             <div class="w3ls_logo_products_left1">
                 <ul class="special_items">
@@ -241,16 +291,75 @@ $(document).ready(function(){
 			});
     </script>
     <!-- //here ends scrolling icon -->
-    <script src="~/Resources/js/minicart.min.js"></script>
-    <script>
-	// Mini Cart
-	paypal.minicart.render({
-		action: '#'
-	});
 
-	if (~window.location.search.indexOf('reset=true')) {
-		paypal.minicart.reset();
-	}
+
+    <script>
+
+        $(function () {
+            var carrito = localStorage.getItem("carrito");
+            var productos = [];
+            if (carrito != null) {
+                productos = JSON.parse(carrito);
+                CargaCarrito(productos);
+            }
+        });
+
+        function AgregarCarrito(productoid, denominacion, imagen, precio) {
+            var carrito = localStorage.getItem("carrito");
+            var productos = [];
+            if (carrito != null) {
+                productos = JSON.parse(carrito);
+            }
+
+            var itemActual;
+            for (var i = 0; i < productos.length; i++) {
+                if (productos[i].ProductoId == productoid) {
+                    itemActual = productos[i];
+                }
+            }
+
+            if (!itemActual) {
+                productos.push({ ProductoId: productoid, Denominacion: denominacion, Precio: precio, Cantidad: 1, Imagen: imagen });
+            } else {
+                itemActual.Cantidad++;
+            }
+
+            var jsonStr = JSON.stringify(productos);
+            localStorage.setItem("carrito", jsonStr);
+
+            CargaCarrito(productos);
+
+        }
+
+        function CargaCarrito(productos) {
+            var html = '';
+            var total = 0;
+
+            $("#nroProductosCarrito").text('(' + productos.length + ')');
+
+            $.each(productos, function () {
+                total += this.Precio * this.Cantidad
+                html += '<div class="item-in-cart clearfix">' +
+                       '    <div class="image">' +
+                '             <img src="/ImgProductos/' + this.Imagen + '"  width="50" height="50" alt="cart item" />' +
+                '           </div>' +
+                '           <div class="desc">' +
+                '                 <strong><a href="product.html">' + this.Denominacion + '</a></strong>' +
+                '                <span class="light-clr qty">Qty: ' + this.Cantidad + ' &nbsp;' +
+                '                       <a href="#" class="icon-remove-sign" title="Remove Item"></a>' +
+                '                    </span>' +
+                '                </div>' +
+                '                <div class="price">' +
+                '                   <strong>S/. ' + this.Precio + '</strong>' +
+                '               </div>' +
+                '           </div>';
+            });
+            $('#itemcarrito').html(html);
+
+            $("#totalCompraCarrito,#totalCarrito").text('S/.' + total);
+
+        }
+
     </script>
 </body>
 </html>

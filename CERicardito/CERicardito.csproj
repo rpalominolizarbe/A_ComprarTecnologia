@@ -43,11 +43,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -89,14 +99,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ComercioBD.mdf" />
+    <Content Include="App_Data\ComercioBD_log.ldf">
+      <DependentUpon>ComercioBD.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Models\ModelTienda.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTienda.edmx</DependentUpon>
+      <LastGenOutput>ModelTienda.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelTienda.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelTienda.edmx</DependentUpon>
+      <LastGenOutput>ModelTienda.cs</LastGenOutput>
+    </Content>
     <Content Include="Resources\css\bootstrap.css" />
+    <Content Include="Resources\css\bootstrap.min.css" />
     <Content Include="Resources\css\flexslider.css" />
     <Content Include="Resources\css\font-awesome.css" />
+    <Content Include="Resources\css\listacarrito.css" />
+    <Content Include="Resources\css\main.css" />
+    <Content Include="Resources\css\responsive.css" />
+    <Content Include="Resources\css\Site.css" />
     <Content Include="Resources\css\style.css" />
+    <Content Include="Resources\css\style_modal.css" />
     <Content Include="Resources\images\1.jpg" />
     <Content Include="Resources\images\1.png" />
     <Content Include="Resources\images\10.jpg" />
@@ -216,25 +246,153 @@
     <Content Include="Resources\images\star.png" />
     <Content Include="Resources\images\star1.png" />
     <Content Include="Resources\images\tag.png" />
+    <Content Include="Resources\js\bootstrap-tour\build\js\bootstrap-tour.min.js" />
     <Content Include="Resources\js\bootstrap.min.js" />
     <Content Include="Resources\js\counterup.min.js" />
+    <Content Include="Resources\js\custom.js" />
     <Content Include="Resources\js\easing.js" />
+    <Content Include="Areas\admin\Views\AHome\Index.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Adjuntos.cshtml" />
+    <None Include="Resources\js\jquery-1.10.2.intellisense.js" />
+    <Content Include="Resources\js\isotope\jquery.isotope.min.js" />
+    <Content Include="Resources\js\jquery-1.10.2.js" />
+    <Content Include="Resources\js\jquery-1.10.2.min.js" />
     <Content Include="Resources\js\jquery-1.11.1.min.js" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\css\smoothness\jquery-ui-1.10.3.custom.min.css" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\js\jquery-ui-1.10.3.custom.min.js" />
+    <Content Include="Resources\js\jquery-ui-1.10.3\touch-fix.min.js" />
+    <Content Include="Resources\js\jquery.carouFredSel-6.2.1-packed.js" />
     <Content Include="Resources\js\jquery.flexslider.js" />
+    <Content Include="Resources\js\jquery.form.min.js" />
     <Content Include="Resources\js\jquery.wmuSlider.js" />
     <Content Include="Resources\js\minicart.min.js" />
+    <Content Include="Resources\js\modernizr-2.6.2.js" />
+    <Content Include="Resources\js\modernizr.custom.56918.js" />
     <Content Include="Resources\js\move-top.js" />
     <Content Include="Resources\js\okzoom.js" />
+    <Content Include="Resources\js\prettyphoto\css\prettyPhoto.css" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\default_thumb.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\loader.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\sprite_next.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\sprite_prev.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\sprite_x.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\default\sprite_y.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\loader.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\facebook\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="Resources\js\prettyphoto\images\prettyPhoto\light_square\sprite.png" />
+    <Content Include="Resources\js\prettyphoto\js\jquery.prettyPhoto.js" />
+    <Content Include="Resources\js\rs-plugin\assets\arrowleft.png" />
+    <Content Include="Resources\js\rs-plugin\assets\arrowright.png" />
+    <Content Include="Resources\js\rs-plugin\assets\arrow_left.png" />
+    <Content Include="Resources\js\rs-plugin\assets\arrow_left2.png" />
+    <Content Include="Resources\js\rs-plugin\assets\arrow_right.png" />
+    <Content Include="Resources\js\rs-plugin\assets\arrow_right2.png" />
+    <Content Include="Resources\js\rs-plugin\assets\boxed_bgtile.png" />
+    <Content Include="Resources\js\rs-plugin\assets\bullet.png" />
+    <Content Include="Resources\js\rs-plugin\assets\bullets.png" />
+    <Content Include="Resources\js\rs-plugin\assets\bullets2.png" />
+    <Content Include="Resources\js\rs-plugin\assets\bullet_boxed.png" />
+    <Content Include="Resources\js\rs-plugin\assets\coloredbg.png" />
+    <Content Include="Resources\js\rs-plugin\assets\large_left.png" />
+    <Content Include="Resources\js\rs-plugin\assets\large_right.png" />
+    <Content Include="Resources\js\rs-plugin\assets\loader.gif" />
+    <Content Include="Resources\js\rs-plugin\assets\navigdots.png" />
+    <Content Include="Resources\js\rs-plugin\assets\navigdots_bgtile.png" />
+    <Content Include="Resources\js\rs-plugin\assets\shadow1.png" />
+    <Content Include="Resources\js\rs-plugin\assets\shadow2.png" />
+    <Content Include="Resources\js\rs-plugin\assets\shadow3.png" />
+    <Content Include="Resources\js\rs-plugin\assets\small_left.png" />
+    <Content Include="Resources\js\rs-plugin\assets\small_left_boxed.png" />
+    <Content Include="Resources\js\rs-plugin\assets\small_right.png" />
+    <Content Include="Resources\js\rs-plugin\assets\small_right_boxed.png" />
+    <Content Include="Resources\js\rs-plugin\assets\timer.png" />
+    <Content Include="Resources\js\rs-plugin\css\settings.css" />
+    <Content Include="Resources\js\rs-plugin\images\gradient\g30.png" />
+    <Content Include="Resources\js\rs-plugin\images\gradient\g40.png" />
+    <Content Include="Resources\js\rs-plugin\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="Resources\js\rs-plugin\pluginsources\jquery.themepunch.plugins.min.js" />
+    <Content Include="Resources\js\underscore\underscore-min.js" />
     <Content Include="Resources\js\waypoints.min.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\admin\adminAreaRegistration.cs" />
+    <Compile Include="Areas\admin\Controllers\AHomeController.cs" />
+    <Compile Include="Areas\admin\Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\ComprarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cliente.cs">
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelTienda.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTienda.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelTienda.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelTienda.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTienda.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pedido.cs">
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PedidoDetalle.cs">
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Producto.cs">
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductoImagen.cs">
+      <DependentUpon>ModelTienda.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\admin\Models\ResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +407,26 @@
     <Content Include="Resources\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin\Views\web.config" />
+    <EntityDeploy Include="Models\ModelTienda.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ModelTienda.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ModelTienda.edmx.diagram">
+      <DependentUpon>ModelTienda.edmx</DependentUpon>
+    </Content>
+    <Content Include="Areas\admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Create.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Delete.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Details.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Edit.cshtml" />
+    <Content Include="Areas\admin\Views\Producto\Index.cshtml" />
+    <Content Include="Views\Home\Buscar.cshtml" />
+    <Content Include="Views\Comprar\Paso2.cshtml" />
+    <Content Include="Views\Comprar\Paso3.cshtml" />
+    <Content Include="Views\Comprar\Paso4.cshtml" />
+    <Content Include="Views\Comprar\Paso1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -257,8 +435,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="ImgProductos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
