@@ -5,20 +5,24 @@
 
 
 <!DOCTYPE html>
-
+<!--[if lt IE 8]>      <html class="no-js lt-ie10 lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie10 lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js">
-
+ <!--<![endif]-->
 <head>
     <meta charset="utf-8" />
     <title>Webmarket HTML Template - Checkout Step 1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <meta name="author" content="ProteusThemes" />
-
+    <!--  Google Fonts  -->
+    <link href='http://fonts.googleapis.com/css?family=Pacifico|Open+Sans:400,700,400italic,700italic&amp;subset=latin,latin-ext,greek' rel='stylesheet' type='text/css' />
 
     <!-- Twitter Bootstrap -->
-    <link href="~/Resources/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Resources/css/responsive.css" rel="stylesheet" />
+    <link href="~/Resources/css/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Resources/css/css/responsive.css" rel="stylesheet" />
     <!-- Slider Revolution -->
     <link rel="stylesheet" href="~/Resources/js/rs-plugin/css/settings.css" type="text/css" />
     <!-- jQuery UI -->
@@ -32,17 +36,15 @@
 
     <!-- Modernizr -->
     <script src="~/Resources/js/modernizr.custom.56918.js"></script>
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/apple-touch/144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/apple-touch/114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/apple-touch/72.png" />
-    <link rel="apple-touch-icon-precomposed" href="images/apple-touch/57.png" />
-    <link rel="shortcut icon" href="images/apple-touch/57.png" />
+
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 </head>
 
-
 <body class="checkout-page">
+
+
 
 
 
@@ -64,7 +66,7 @@
                             <header>
                                 <div class="row">
                                     <div class="span2">
-                                        <a href="index.html"><img src="images/logo-bw.png" alt="Webmarket Logo" width="48" height="48" /></a>
+                                        <a href="index.html"><img src="~/Resources/images/logo-bw.png" alt="Webmarket Logo" width="48" height="48" /></a>
                                     </div>
                                     <div class="span6">
                                         <div class="center-align">
@@ -73,7 +75,7 @@
                                     </div>
                                     <div class="span2">
                                         <div class="right-align">
-                                            <img src="images/buttons/security.jpg" alt="Security Sign" width="92" height="65" />
+                                            <img src="~/Resources/images/buttons/security.jpg" alt="Security Sign" width="92" height="65" />
                                         </div>
                                     </div>
                                 </div>
@@ -143,8 +145,7 @@
     <!--  = FB =  -->
 
     <div id="fb-root"></div>
-    <script>
-(function(d, s, id) {
+    <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
@@ -157,7 +158,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
     if (typeof jQuery == 'undefined') {
-        document.write('<script src="js/jquery.min.js"><\/script>');
+        document.write('<script src="~/Resources/js/jquery.min.js"><\/script>');
     }
     </script>
 
@@ -187,7 +188,7 @@
     <!--  = PrettyPhoto =  -->
     <script src="~/Resources/js/prettyphoto/js/jquery.prettyPhoto.js" type="text/javascript"></script>
 
-
+   
     <!--  = Custom JS =  -->
     <script src="~/Resources/js/custom.js" type="text/javascript"></script>
 
@@ -209,7 +210,7 @@
             $.each(productos, function () {
                 total += this.Precio * this.Cantidad
                 html += '<tr>' +
-                '            <td class="image"><img src="/ImgProductos/' + this.Imagen + '" alt="" width="50" height="50" /></td>' +
+                '            <td class="image"><img src="/ImgProductos/' + this.Imagen + '" alt="" width="124" height="124" /></td>' +
                 '            <td class="desc">' + this.Denominacion + ' &nbsp; <a title="Remove Item" class="icon-remove-sign" href="#"></a></td>' +
                 '            <td class="qty">' +
                 '                <input type="text" class="tiny-size" value="' + this.Cantidad + '" />' +
@@ -225,4 +226,5 @@
 
 </body>
 </html>
+
 

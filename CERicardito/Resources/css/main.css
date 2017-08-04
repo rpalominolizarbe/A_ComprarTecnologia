@@ -327,7 +327,7 @@ header .register { display: -moz-inline-stack; display: inline-block; vertical-a
 /* = Font Icons = */
 /* ========== */
 /* zocial */
-@font-face { font-family: 'zocial'; font-style: 'normal'; font-weight: 'normal'; src: url("../assets/zocial/css/zocial-regular-webfont.eot"); src: url("../assets/zocial/css/zocial-regular-webfont.eot?#iefix") format("eot"), url("../assets/zocial/css/zocial-regular-webfont.woff") format("woff"), url("../assets/zocial/css/zocial-regular-webfont.ttf") format("truetype"), url("../assets/zocial/css/zocial-regular-webfont.svg#zocialregular") format("svg"); }
+@font-face { font-family: 'zocial'; font-style: 'normal'; font-weight: 'normal'; src: url("../../assets/zocial/css/zocial-regular-webfont.eot"); src: url("../../assets/zocial/css/zocial-regular-webfont.eot?#iefix") format("eot"), url("../../assets/zocial/css/zocial-regular-webfont.woff") format("woff"), url("../../assets/zocial/css/zocial-regular-webfont.ttf") format("truetype"), url("../../assets/zocial/css/zocial-regular-webfont.svg#zocialregular") format("svg"); }
 
 .zocial-acrobat:before { content: "\00E3"; }
 
